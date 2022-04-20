@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/goinaction/code/chapter7/patterns/work"
+	"github.com/sky4160864/code/chapter7/patterns/work"
 )
 
 // names provides a set of names to display.
