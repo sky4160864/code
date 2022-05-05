@@ -10,8 +10,8 @@ import (
 	"testing"
 )
 
-const checkMark = "\u2713"
-const ballotX = "\u2717"
+const checkMark = "\u2713" // ✓
+const ballotX = "\u2717"   // ✗
 
 // feed is mocking the XML document we except to receive.
 var feed = `<?xml version="1.0" encoding="UTF-8"?>
@@ -50,40 +50,31 @@ func TestDownload(t *testing.T) {
 
 	t.Log("Given the need to test downloading content.")
 	{
-		t.Logf("\tWhen checking \"%s\" for status code \"%d\"",
-			server.URL, statusCode)
+		t.Logf("\tWhen checking \"%s\" for status code \"%d\"", server.URL, statusCode)
 		{
 			resp, err := http.Get(server.URL)
 			if err != nil {
-				t.Fatal("\t\tShould be able to make the Get call.",
-					ballotX, err)
+				t.Fatal("\t\tShould be able to make the Get call.", ballotX, err)
 			}
-			t.Log("\t\tShould be able to make the Get call.",
-				checkMark)
+			t.Log("\t\tShould be able to make the Get call.", checkMark)
 
 			defer resp.Body.Close()
 
 			if resp.StatusCode != statusCode {
-				t.Fatalf("\t\tShould receive a \"%d\" status. %v %v",
-					statusCode, ballotX, resp.StatusCode)
+				t.Fatalf("\t\tShould receive a \"%d\" status. %v %v", statusCode, ballotX, resp.StatusCode)
 			}
-			t.Logf("\t\tShould receive a \"%d\" status. %v",
-				statusCode, checkMark)
+			t.Logf("\t\tShould receive a \"%d\" status. %v", statusCode, checkMark)
 
 			var d Document
 			if err := xml.NewDecoder(resp.Body).Decode(&d); err != nil {
-				t.Fatal("\t\tShould be able to unmarshal the response.",
-					ballotX, err)
+				t.Fatal("\t\tShould be able to unmarshal the response.", ballotX, err)
 			}
-			t.Log("\t\tShould be able to unmarshal the response.",
-				checkMark)
+			t.Log("\t\tShould be able to unmarshal the response.", checkMark)
 
 			if len(d.Channel.Items) == 1 {
-				t.Log("\t\tShould have \"1\" item in the feed.",
-					checkMark)
+				t.Log("\t\tShould have \"1\" item in the feed.", checkMark)
 			} else {
-				t.Error("\t\tShould have \"1\" item in the feed.",
-					ballotX, len(d.Channel.Items))
+				t.Error("\t\tShould have \"1\" item in the feed.", ballotX, len(d.Channel.Items))
 			}
 		}
 	}

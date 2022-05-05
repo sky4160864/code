@@ -13,7 +13,8 @@ import (
 // multiple goroutines. The resource being managed must implement
 // the io.Closer interface.
 type Pool struct {
-	m         sync.Mutex
+	m sync.Mutex
+	// 定义成员,通道类型,通道传递的是io.Closer类型
 	resources chan io.Closer
 	factory   func() (io.Closer, error)
 	closed    bool
@@ -93,8 +94,8 @@ func (p *Pool) Close() {
 	// Set the pool as closed.
 	p.closed = true
 
-	// Close the channel before we drain the channel of its
-	// resources. If we don't do this, we will have a deadlock.
+	// Close the channel before we drain the channel of its		// 在清空通道里的资源之前，将通道关闭
+	// resources. If we don't do this, we will have a deadlock.    // 如果不这样做，会发生死锁
 	close(p.resources)
 
 	// Close the resources

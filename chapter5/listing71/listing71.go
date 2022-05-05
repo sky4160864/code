@@ -12,8 +12,8 @@ import (
 func main() {
 	// Create a value of type User from the entities package.
 	u := entities.User{
-		Name:  "Bill",
-		email: "bill@email.com",
+		Name: "Bill",
+		//email: "bill@email.com",
 	}
 
 	// ./example71.go:16: unknown entities.User field 'email' in

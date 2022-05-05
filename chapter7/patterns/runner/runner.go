@@ -78,6 +78,7 @@ func (r *Runner) run() error {
 		}
 
 		// Execute the registered task.
+		//fmt.Println(id)
 		task(id)
 	}
 

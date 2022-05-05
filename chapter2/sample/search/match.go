@@ -12,6 +12,7 @@ type Result struct {
 
 // Matcher defines the behavior required by types that want
 // to implement a new search type.
+// ctrl+alt+b 可以看到有2个实现
 type Matcher interface {
 	Search(feed *Feed, searchTerm string) ([]*Result, error)
 }

@@ -6,6 +6,9 @@ import (
 )
 
 // A map of registered matchers for searching.
+// 1.不理解map[string]Matcher 2.matchers类型是什么
+// 1. (map[string]interface{}) //必可不少，分配内存
+// 2. matchers是Matcher集合：有2个注册 【Register("default", matcher)，Register("rss", matcher)】
 var matchers = make(map[string]Matcher)
 
 // Run performs the search logic.
@@ -29,7 +32,7 @@ func Run(searchTerm string) {
 	// Launch a goroutine for each feed to find the results.
 	for _, feed := range feeds {
 		// Retrieve a matcher for the search.
-		matcher, exists := matchers[feed.Type]
+		matcher, exists := matchers[feed.Type] // feed.Type=rss,因此matcher为rss中的Search
 		if !exists {
 			matcher = matchers["default"]
 		}
